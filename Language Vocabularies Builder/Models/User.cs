@@ -2,7 +2,7 @@
 namespace VocabularyBuilder.Models;
 public class User
 {
-    
+
     [JsonPropertyName("id")]
     public int Id { get; set; }
 

@@ -1,3 +1,4 @@
-﻿using Language_Vocabularies_Builder.Menu;
+﻿using VocabularyBuilder.Menu;
 MainMenu mainMenu = new MainMenu();
+
 mainMenu.Show();

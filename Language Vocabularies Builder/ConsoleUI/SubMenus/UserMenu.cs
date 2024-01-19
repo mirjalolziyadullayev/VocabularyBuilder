@@ -1,7 +1,6 @@
-﻿using VocabularyBuilder.Interfaces;
-using VocabularyBuilder.Models;
+﻿using VocabularyBuilder.Models;
 using VocabularyBuilder.Services;
-namespace VocabularyBuilder.Menu;
+namespace Language_Vocabularies_Builder.ConsoleUI.SubMenus;
 public class UserMenu
 {
     private readonly UserService userService;
@@ -23,7 +22,7 @@ public class UserMenu
             Console.WriteLine("7.Exit");
             Console.WriteLine("Choose an option");
             string choice = Console.ReadLine();
-            while (String.IsNullOrWhiteSpace(choice))
+            while (string.IsNullOrWhiteSpace(choice))
             {
                 Console.WriteLine("Choose a valid option");
                 choice = Console.ReadLine();
@@ -107,7 +106,7 @@ public class UserMenu
         }
         Console.Write("Enter user Name: ");
         string name = Console.ReadLine();
-        while (String.IsNullOrWhiteSpace(name))
+        while (string.IsNullOrWhiteSpace(name))
         {
             Console.Write("Enter valid input: ");
             name = Console.ReadLine();

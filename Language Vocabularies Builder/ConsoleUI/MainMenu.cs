@@ -1,5 +1,7 @@
 ﻿using VocabularyBuilder.Services;
 namespace VocabularyBuilder.Menu;
+
+using Language_Vocabularies_Builder.ConsoleUI.SubMenus;
 using Spectre.Console;
 
 public class MainMenu
@@ -24,7 +26,7 @@ public class MainMenu
         while (true)
         {
             Console.Clear();
-            AnsiConsole.Write(new Markup("[red]====Welcome to our Language Vocabulary Builder====[/]\n"));
+            AnsiConsole.Write(new Markup("[]VocabularyBuilder[/]\n"));
             AnsiConsole.Write(new Markup("[green]====MainMenu=====[/]\n\n"));
             AnsiConsole.Write(new Markup("[yellow]1.UserMenu[/]\n"));
             AnsiConsole.Write(new Markup("[yellow]2.VocabularyMenu[/]\n\n"));

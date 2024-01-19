@@ -1,8 +1,6 @@
-﻿using VocabularyBuilder.Interfaces;
+﻿using Newtonsoft.Json;
+using VocabularyBuilder.Interfaces;
 using VocabularyBuilder.Models;
-using Newtonsoft.Json;
-using System.Text;
-using Microsoft.VisualBasic;
 
 namespace VocabularyBuilder.Services;
 public class VocabularyService : IVocabularyService

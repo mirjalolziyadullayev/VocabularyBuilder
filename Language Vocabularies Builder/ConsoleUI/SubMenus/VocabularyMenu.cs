@@ -1,7 +1,6 @@
-﻿using VocabularyBuilder.Interfaces;
-using VocabularyBuilder.Models;
+﻿using VocabularyBuilder.Models;
 using VocabularyBuilder.Services;
-namespace VocabularyBuilder.Menu;
+namespace Language_Vocabularies_Builder.ConsoleUI.SubMenus;
 public class VocabularyMenu
 {
     private readonly VocabularyService vocabularyService;
@@ -14,7 +13,7 @@ public class VocabularyMenu
     {
         while (true)
         {
-            Console.WriteLine("\n=====Vocabulary Menu===== ");
+            Console.WriteLine("Vocabulary Menu\n");
             Console.WriteLine("1.Create");
             Console.WriteLine("2.Update");
             Console.WriteLine("3.Delete");
@@ -23,7 +22,7 @@ public class VocabularyMenu
             Console.WriteLine("6.Exit");
             Console.WriteLine("Choose an option");
             string choice = Console.ReadLine();
-            while (String.IsNullOrWhiteSpace(choice))
+            while (string.IsNullOrWhiteSpace(choice))
             {
                 Console.WriteLine("Choose a valid option");
                 choice = Console.ReadLine();
@@ -61,7 +60,7 @@ public class VocabularyMenu
                     return;
                 default:
                     Console.Clear();
-                    Console.WriteLine("Invalid choice,Please try again one more time");
+                    Console.WriteLine("Invalid choice, press any key to re-enter");
                     Console.WriteLine();
                     break;
 
@@ -82,9 +81,7 @@ public class VocabularyMenu
         {
             Console.WriteLine("Vocabulary not found");
         }
-        else Console.WriteLine($"Id:{vocabulary.Id} |{vocabulary.OriginalLanguage}|{vocabulary.TranslateLanguage} " +
-            $"Word: {vocabulary.Word}|Definition:{vocabulary.Definition}" +
-            $"Synonyms:{vocabulary.Synonyms} | Example:{vocabulary.Example} ");
+        else Console.WriteLine($"Id:{vocabulary.Id}|{vocabulary.Language}|{vocabulary.TranslateLanguage}Word: {vocabulary.Word}");
     }
     private void Create()
     {
@@ -97,62 +94,39 @@ public class VocabularyMenu
         }
         Console.WriteLine("Enter language: ");
         string language = Console.ReadLine();
-        while (String.IsNullOrWhiteSpace(language))
+        while (string.IsNullOrWhiteSpace(language))
         {
             Console.Write("Enter valid input: ");
             language = Console.ReadLine();
         }
         Console.WriteLine("Enter Translate Language[English-Uzbek]: ");
         string translateLanguage = Console.ReadLine();
-        while (String.IsNullOrWhiteSpace(translateLanguage))
+        while (string.IsNullOrWhiteSpace(translateLanguage))
         {
             Console.Write("Enter valid input: ");
             translateLanguage = Console.ReadLine();
         }
         Console.WriteLine("Enter Word: ");
         string word = Console.ReadLine();
-        while (String.IsNullOrWhiteSpace(word))
+        while (string.IsNullOrWhiteSpace(word))
         {
             Console.Write("Enter valid input: ");
             word = Console.ReadLine();
         }
-        Console.WriteLine("Enter Definition: ");
-        string definition = Console.ReadLine();
-        while (String.IsNullOrWhiteSpace(definition))
-        {
-            Console.Write("Enter valid input: ");
-            definition = Console.ReadLine();
-        }
-        Console.WriteLine("Enter Synonyms: ");
-        string synonyms = Console.ReadLine();
-        while (String.IsNullOrWhiteSpace(synonyms))
-        {
-            Console.Write("Enter valid input: ");
-            synonyms = Console.ReadLine();
-        }
-        Console.WriteLine("Enter Example: ");
-        string example = Console.ReadLine();
-        while (String.IsNullOrWhiteSpace(example))
-        {
-            Console.WriteLine("Enter valid input: ");
-            example = Console.ReadLine();
-        }
-        var newVocabulary = new Vocabulary
+
+        var newVocab = new Vocabulary
         {
             Id = id,
-            OriginalLanguage = language,
+            Language = language,
             TranslateLanguage = translateLanguage,
             Word = word,
-            Definition = definition,
-            Synonyms = synonyms,
-            Example = example,
         };
-        vocabularyService.Create(newVocabulary);
-        Console.WriteLine("Vocabulary created successfully.");
+        vocabularyService.Create(newVocab);
+        Console.WriteLine("Vocabulary created.");
     }
     private void Update()
     {
-        Console.WriteLine("\n==Update Vocabulary==");
+        Console.WriteLine("Update Vocabulary\n");
         Console.WriteLine("Enter id:");
         int vocabularyId;
         while (!int.TryParse(Console.ReadLine(), out vocabularyId))
@@ -208,14 +182,12 @@ public class VocabularyMenu
             var vocabulary = vocabularyService.GetById(vocabularyId);
             if (vocabulary != null)
             {
-                vocabulary.OriginalLanguage = vocabulary.OriginalLanguage;
+                vocabulary.Language = vocabulary.Language;
                 vocabulary.TranslateLanguage = vocabulary.TranslateLanguage;
                 vocabulary.Word = updatedWord;
-                vocabulary.Definition = updatedDefinition;
-                vocabulary.Synonyms = updatedSynonyms;
-                vocabulary.Example = updatedExample;
+
                 vocabularyService.Update(vocabularyId, vocabulary);
-                Console.WriteLine("Vocabulary updated successfully");
+                Console.WriteLine("Vocabulary updated");
             }
             else
             {
@@ -225,7 +197,7 @@ public class VocabularyMenu
     }
     private void Delete()
     {
-        Console.WriteLine("===Delete Vocabulary===");
+        Console.WriteLine("Delete Vocabulary");
         Console.WriteLine("Enter vocabularyId to delete");
         int id;
         while (!int.TryParse(Console.ReadLine(), out id))
@@ -243,22 +215,18 @@ public class VocabularyMenu
     }
     private void GetAll()
     {
-        Console.WriteLine("===View all Vocabulary==");
+        Console.WriteLine("Get All Vocabularies");
         IEnumerable<Vocabulary> vocabularies = vocabularyService.GetAll();
         if (vocabularies.Count() > 0)
         {
             foreach (var vocabulary in vocabularies)
             {
-                Console.WriteLine($"Id:{vocabulary.Id} | Language:{vocabulary.OriginalLanguage}|" +
-                    $"TranslateLanguage:{vocabulary.TranslateLanguage} |Word:{vocabulary.Word}|" +
-                    $"Definition:{vocabulary.Definition}" +
-                    $"Synonyms:{vocabulary.Synonyms} |Example: {vocabulary.Example}");
+                Console.WriteLine($"Id:{vocabulary.Id}\nLanguage:{vocabulary.Language}\nTranslateLanguage:{vocabulary.TranslateLanguage}\nWord:{vocabulary.Word}");
             }
         }
         else
         {
-            Console.WriteLine("Sorry,Vocabulary not found");
+            Console.WriteLine("Vocabulary not found");
         }
-
     }
 }
