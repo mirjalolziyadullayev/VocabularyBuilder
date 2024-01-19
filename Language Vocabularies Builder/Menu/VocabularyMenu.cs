@@ -1,7 +1,7 @@
-﻿using Language_Vocabularies_Builder.Interfaces;
-using Language_Vocabularies_Builder.Models;
-using Language_Vocabularies_Builder.Services;
-namespace Language_Vocabularies_Builder.Menu;
+﻿using VocabularyBuilder.Interfaces;
+using VocabularyBuilder.Models;
+using VocabularyBuilder.Services;
+namespace VocabularyBuilder.Menu;
 public class VocabularyMenu
 {
     private readonly VocabularyService vocabularyService;
@@ -82,7 +82,7 @@ public class VocabularyMenu
         {
             Console.WriteLine("Vocabulary not found");
         }
-        else Console.WriteLine($"Id:{vocabulary.Id} |{vocabulary.Language}|{vocabulary.TranslateLanguage} " +
+        else Console.WriteLine($"Id:{vocabulary.Id} |{vocabulary.OriginalLanguage}|{vocabulary.TranslateLanguage} " +
             $"Word: {vocabulary.Word}|Definition:{vocabulary.Definition}" +
             $"Synonyms:{vocabulary.Synonyms} | Example:{vocabulary.Example} ");
     }
@@ -140,7 +140,7 @@ public class VocabularyMenu
         var newVocabulary = new Vocabulary
         {
             Id = id,
-            Language = language,
+            OriginalLanguage = language,
             TranslateLanguage = translateLanguage,
             Word = word,
             Definition = definition,
@@ -208,7 +208,7 @@ public class VocabularyMenu
             var vocabulary = vocabularyService.GetById(vocabularyId);
             if (vocabulary != null)
             {
-                vocabulary.Language = vocabulary.Language;
+                vocabulary.OriginalLanguage = vocabulary.OriginalLanguage;
                 vocabulary.TranslateLanguage = vocabulary.TranslateLanguage;
                 vocabulary.Word = updatedWord;
                 vocabulary.Definition = updatedDefinition;
@@ -249,7 +249,7 @@ public class VocabularyMenu
         {
             foreach (var vocabulary in vocabularies)
             {
-                Console.WriteLine($"Id:{vocabulary.Id} | Language:{vocabulary.Language}|" +
+                Console.WriteLine($"Id:{vocabulary.Id} | Language:{vocabulary.OriginalLanguage}|" +
                     $"TranslateLanguage:{vocabulary.TranslateLanguage} |Word:{vocabulary.Word}|" +
                     $"Definition:{vocabulary.Definition}" +
                     $"Synonyms:{vocabulary.Synonyms} |Example: {vocabulary.Example}");

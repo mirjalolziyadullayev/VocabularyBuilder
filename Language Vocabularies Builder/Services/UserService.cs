@@ -1,8 +1,7 @@
-﻿using Language_Vocabularies_Builder.Interfaces;
-using Language_Vocabularies_Builder.Models;
-using Newtonsoft.Json;
-using System.Text;
-namespace Language_Vocabularies_Builder.Services;
+﻿using Newtonsoft.Json;
+using VocabularyBuilder.Interfaces;
+using VocabularyBuilder.Models;
+namespace VocabularyBuilder.Services;
 public class UserService : IUserService
 {
     private readonly List<User> users;
@@ -16,10 +15,10 @@ public class UserService : IUserService
         var userFound = false;
         var vocabFound = false;
 
-        var uContent = File.ReadAllText(Constants.USERS_PATH);
+        var uContent = File.ReadAllText(Path.PathUser);
         List<User> Users = JsonConvert.DeserializeObject<List<User>>(uContent);
 
-        var vContent = File.ReadAllText(Constants.VOCABULARIES_PATH);
+        var vContent = File.ReadAllText(Path.PathVocabs);
         List<Vocabulary> Vocabs = JsonConvert.DeserializeObject<List<Vocabulary>>(vContent);
 
         var vocab = Vocabs.FirstOrDefault(Vocabulary => Vocabulary.Id == vocabID);
@@ -38,13 +37,14 @@ public class UserService : IUserService
                     break;
                 }
             }
-        } else
+        }
+        else
         {
             vocabFound = false;
         }
 
         var result = JsonConvert.SerializeObject(Users, Formatting.Indented);
-        File.WriteAllText(Constants.USERS_PATH, result);
+        File.WriteAllText(Path.PathUser, result);
 
         return (userFound, vocabFound);
     }
@@ -52,12 +52,12 @@ public class UserService : IUserService
     {
         users.Add(user);
         var content = JsonConvert.SerializeObject(users, Formatting.Indented);
-        File.WriteAllText(Constants.USERS_PATH, content);
+        File.WriteAllText(Path.PathUser, content);
         return user;
     }
     public bool Delete(int id)
     {
-        var content = File.ReadAllText(Constants.USERS_PATH);
+        var content = File.ReadAllText(Path.PathUser);
         List<User> Users = JsonConvert.DeserializeObject<List<User>>(content);
 
         foreach (var item in Users)
@@ -69,14 +69,14 @@ public class UserService : IUserService
             }
         }
         var result = JsonConvert.SerializeObject(Users, Formatting.Indented);
-        File.WriteAllText(Constants.USERS_PATH, result);
+        File.WriteAllText(Path.PathUser, result);
 
         return true;
     }
-    public IEnumerable<User> GetAll()
+    public List<User> GetAll()
     {
-        var content = File.ReadAllText(Constants.USERS_PATH);
-        return JsonConvert.DeserializeObject<IEnumerable<User>>(content);
+        var content = File.ReadAllText(Path.PathUser);
+        return JsonConvert.DeserializeObject<List<User>>(content);
     }
     public User GetById(int id)
     {
@@ -85,8 +85,8 @@ public class UserService : IUserService
     }
     public User Update(int id, User user)
     {
-        var content = File.ReadAllText(Constants.USERS_PATH);
-        IEnumerable<User> Users = JsonConvert.DeserializeObject<IEnumerable<User>>(content);
+        var content = File.ReadAllText(Path.PathUser);
+        List<User> Users = JsonConvert.DeserializeObject<List<User>>(content);
 
         foreach (var item in Users)
         {
@@ -97,7 +97,7 @@ public class UserService : IUserService
             }
         }
         var result = JsonConvert.SerializeObject(Users, Formatting.Indented);
-        File.WriteAllText(Constants.USERS_PATH, result);
+        File.WriteAllText(Path.PathUser, result);
 
         return user;
     }

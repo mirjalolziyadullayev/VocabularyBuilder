@@ -1,9 +1,10 @@
-﻿using Language_Vocabularies_Builder.Interfaces;
-using Language_Vocabularies_Builder.Models;
+﻿using VocabularyBuilder.Interfaces;
+using VocabularyBuilder.Models;
 using Newtonsoft.Json;
 using System.Text;
+using Microsoft.VisualBasic;
 
-namespace Language_Vocabularies_Builder.Services;
+namespace VocabularyBuilder.Services;
 public class VocabularyService : IVocabularyService
 {
     private readonly List<Vocabulary> vocabularies;
@@ -16,24 +17,24 @@ public class VocabularyService : IVocabularyService
         vocabularies.Add(vocabulary);
 
         var content = JsonConvert.SerializeObject(vocabularies, Formatting.Indented);
-        File.WriteAllText(Constants.VOCABULARIES_PATH, content);
+        File.WriteAllText(Path.PathVocabs, content);
         return vocabulary;
     }
     public List<Vocabulary> GetAll()
     {
-        var content = File.ReadAllText(Constants.VOCABULARIES_PATH);
+        var content = File.ReadAllText(Path.PathVocabs);
         return JsonConvert.DeserializeObject<List<Vocabulary>>(content);
     }
     public Vocabulary Update(int id, Vocabulary vocabulary)
     {
-        var content = File.ReadAllText(Constants.VOCABULARIES_PATH);
+        var content = File.ReadAllText(Path.PathVocabs);
         List<Vocabulary> Vocabularies = JsonConvert.DeserializeObject<List<Vocabulary>>(content);
 
         foreach (var item in vocabularies)
         {
             if (item.Id == id)
             {
-                item.Language = vocabulary.Language;
+                item.OriginalLanguage = vocabulary.OriginalLanguage;
                 item.TranslateLanguage = vocabulary.TranslateLanguage;
                 item.Word = vocabulary.Word;
                 item.Definition = vocabulary.Definition;
@@ -44,13 +45,13 @@ public class VocabularyService : IVocabularyService
             }
         }
         var result = JsonConvert.SerializeObject(vocabularies, Formatting.Indented);
-        File.WriteAllText(Constants.VOCABULARIES_PATH, result);
+        File.WriteAllText(Path.PathVocabs, result);
 
         return vocabulary;
     }
     public bool Delete(int id)
     {
-        var content = File.ReadAllText(Constants.VOCABULARIES_PATH);
+        var content = File.ReadAllText(Path.PathVocabs);
         List<Vocabulary> Vocabularies = JsonConvert.DeserializeObject<List<Vocabulary>>(content);
 
         foreach (var item in vocabularies)
@@ -62,7 +63,7 @@ public class VocabularyService : IVocabularyService
             }
         }
         var result = JsonConvert.SerializeObject(vocabularies, Formatting.Indented);
-        File.WriteAllText(Constants.VOCABULARIES_PATH, result);
+        File.WriteAllText(Path.PathVocabs, result);
 
         return true;
     }

@@ -1,7 +1,7 @@
-﻿using Language_Vocabularies_Builder.Interfaces;
-using Language_Vocabularies_Builder.Models;
-using Language_Vocabularies_Builder.Services;
-namespace Language_Vocabularies_Builder.Menu;
+﻿using VocabularyBuilder.Interfaces;
+using VocabularyBuilder.Models;
+using VocabularyBuilder.Services;
+namespace VocabularyBuilder.Menu;
 public class UserMenu
 {
     private readonly UserService userService;

@@ -1,5 +1,5 @@
-﻿using Language_Vocabularies_Builder.Models;
-namespace Language_Vocabularies_Builder.Interfaces;
+﻿using VocabularyBuilder.Models;
+namespace VocabularyBuilder.Interfaces;
 public interface IVocabularyService
 {
     Vocabulary Create(Vocabulary vocabulary);

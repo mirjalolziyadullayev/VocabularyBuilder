@@ -1,6 +1,7 @@
-﻿using Language_Vocabularies_Builder.Services;
+﻿using VocabularyBuilder.Services;
+namespace VocabularyBuilder.Menu;
 using Spectre.Console;
-namespace Language_Vocabularies_Builder.Menu;
+
 public class MainMenu
 {
     private readonly UserMenu userMenu;
