@@ -19,11 +19,10 @@ public class VocabularyMenu
             AnsiConsole.Write(new Markup("[white]  1.Create[/]\n"));
             AnsiConsole.Write(new Markup("[white]  2.Update[/]\n\n"));
             AnsiConsole.Write(new Markup("[white]  3.Delete[/]\n\n"));
-            AnsiConsole.Write(new Markup("[white]  4.Delete[/]\n\n"));
-            AnsiConsole.Write(new Markup("[white]  5.Get by Id[/]\n\n"));
-            AnsiConsole.Write(new Markup("[white]  6.Get All[/]\n\n"));
-            AnsiConsole.Write(new Markup("[red]  3.Exit[/]\n"));
-            Console.WriteLine("Choose an option");
+            AnsiConsole.Write(new Markup("[white]  4.Get by Id[/]\n\n"));
+            AnsiConsole.Write(new Markup("[white]  5.Get All[/]\n\n"));
+            AnsiConsole.Write(new Markup("[red]  6.Exit[/]\n"));
+            Console.WriteLine("Enter your choice:");
             string choice = Console.ReadLine();
             while (string.IsNullOrWhiteSpace(choice))
             {
@@ -77,7 +76,7 @@ public class VocabularyMenu
         int id;
         while (!int.TryParse(Console.ReadLine(), out id))
         {
-            Console.WriteLine("Enter a valid id");
+            Console.WriteLine("Press any key to re-enter");
         }
         var vocabulary = vocabularyService.GetById(id);
         if (vocabulary == null)
@@ -89,31 +88,31 @@ public class VocabularyMenu
     private void Create()
     {
         Console.WriteLine("Create Vocabulary");
-        Console.WriteLine("Enter Id:");
+        Console.WriteLine("Press any key to re-enter");
         int id;
         while (!int.TryParse(Console.ReadLine(), out id))
         {
-            Console.WriteLine("Enter a valid id!");
+            Console.WriteLine("Press any key to re-enter");
         }
         Console.WriteLine("Enter language: ");
         string language = Console.ReadLine();
         while (string.IsNullOrWhiteSpace(language))
         {
-            Console.Write("Enter valid input: ");
+            Console.WriteLine("Press any key to re-enter");
             language = Console.ReadLine();
         }
         Console.WriteLine("Enter Translate Language:");
         string translateLanguage = Console.ReadLine();
         while (string.IsNullOrWhiteSpace(translateLanguage))
         {
-            Console.Write("Enter valid input: ");
+            Console.WriteLine("Press any key to re-enter");
             translateLanguage = Console.ReadLine();
         }
         Console.WriteLine("Enter Word: ");
         string word = Console.ReadLine();
         while (string.IsNullOrWhiteSpace(word))
         {
-            Console.Write("Enter valid input: ");
+            Console.WriteLine("Press any key to re-enter");
             word = Console.ReadLine();
         }
         var newVocab = new Vocabulary
@@ -133,7 +132,7 @@ public class VocabularyMenu
         int vocabularyId;
         while (!int.TryParse(Console.ReadLine(), out vocabularyId))
         {
-            Console.WriteLine("Enter a valid Id:");
+            Console.WriteLine("Press any key to re-enter");
         }
         var existVocabulary = vocabularyService.GetById(vocabularyId);
         if (existVocabulary != null)
@@ -142,42 +141,42 @@ public class VocabularyMenu
             string updatedLanguage = Console.ReadLine();
             while (string.IsNullOrWhiteSpace(updatedLanguage))
             {
-                Console.WriteLine("Enter a valid langauge ");
+                Console.WriteLine("Press any key to re-enter");
                 updatedLanguage = Console.ReadLine();
             }
             Console.WriteLine("Enter update Translate Language:");
             string updatedTranslateLanguage = Console.ReadLine();
             while (string.IsNullOrWhiteSpace(updatedTranslateLanguage))
             {
-                Console.WriteLine("Enter a valid langauge ");
+                Console.WriteLine("Press any key to re-enter");
                 updatedLanguage = Console.ReadLine();
             }
             Console.WriteLine("Enter update Word:");
             string updatedWord = Console.ReadLine();
             while (string.IsNullOrWhiteSpace(updatedWord))
             {
-                Console.WriteLine("Enter a valid word");
+                Console.WriteLine("Press any key to re-enter");
                 updatedWord = Console.ReadLine();
             }
             Console.WriteLine("Enter update Definition:");
             string updatedDefinition = Console.ReadLine();
             while (string.IsNullOrWhiteSpace(updatedDefinition))
             {
-                Console.WriteLine("Enter a valid Definition");
+                Console.WriteLine("Press any key to re-enter");
                 updatedWord = Console.ReadLine();
             }
             Console.WriteLine("Enter update Synonyms:");
             string updatedSynonyms = Console.ReadLine();
             while (string.IsNullOrWhiteSpace(updatedSynonyms))
             {
-                Console.WriteLine("Enter a valid Synonyms");
+                Console.WriteLine("Press any key to re-enter");
                 updatedSynonyms = Console.ReadLine();
             }
             Console.WriteLine("Enter update Example:");
             string updatedExample = Console.ReadLine();
             while (string.IsNullOrWhiteSpace(updatedExample))
             {
-                Console.WriteLine("Enter a valid word");
+                Console.WriteLine("");
                 updatedExample = Console.ReadLine();
             }
             var vocabulary = vocabularyService.GetById(vocabularyId);
@@ -199,11 +198,11 @@ public class VocabularyMenu
     private void Delete()
     {
         Console.WriteLine("Delete Vocabulary");
-        Console.WriteLine("Enter vocabularyId to delete");
+        Console.WriteLine("Enter an Id");
         int id;
         while (!int.TryParse(Console.ReadLine(), out id))
         {
-            Console.WriteLine("Please enter a valid id");
+            Console.WriteLine("Enter a valid id");
         }
         if (vocabularyService.Delete(id))
         {
@@ -227,7 +226,7 @@ public class VocabularyMenu
         }
         else
         {
-            Console.WriteLine("Vocabulary not found");
+            Console.WriteLine("Vocabulary is not found");
         }
     }
 }

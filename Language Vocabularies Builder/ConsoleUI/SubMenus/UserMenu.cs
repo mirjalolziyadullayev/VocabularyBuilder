@@ -1,4 +1,5 @@
-﻿using VocabularyBuilder.Models;
+﻿using Spectre.Console;
+using VocabularyBuilder.Models;
 using VocabularyBuilder.Services;
 namespace Language_Vocabularies_Builder.ConsoleUI.SubMenus;
 public class UserMenu
@@ -12,16 +13,16 @@ public class UserMenu
     {
         while (true)
         {
-            Console.WriteLine("\n=====User Menu===== ");
-            Console.WriteLine("1.Create");
-            Console.WriteLine("2.Update");
-            Console.WriteLine("3.Delete");
-            Console.WriteLine("4.Get By Id");
-            Console.WriteLine("5.Get All");
-            Console.WriteLine("6.Add vocabulary to user");
-            Console.WriteLine("7.Exit");
-
-            Console.WriteLine("Choose an option");
+            AnsiConsole.Write(new Markup("[green]Vocabulary[/][grey]Builder[/]\n"));
+            AnsiConsole.Write(new Markup("[blue]User Menu[/]\n\n"));
+            AnsiConsole.Write(new Markup("[white]  1.Create[/]\n"));
+            AnsiConsole.Write(new Markup("[white]  2.Update[/]\n\n"));
+            AnsiConsole.Write(new Markup("[white]  3.Delete[/]\n\n"));
+            AnsiConsole.Write(new Markup("[white]  4.Get by Id[/]\n\n"));
+            AnsiConsole.Write(new Markup("[white]  5.Get All[/]\n\n"));
+            AnsiConsole.Write(new Markup("[white]  6.Add vocabulary[/]\n\n"));
+            AnsiConsole.Write(new Markup("[red]  3.Exit[/]\n"));
+            Console.WriteLine("Enter your choice:");
             string choice = Console.ReadLine();
             while (string.IsNullOrWhiteSpace(choice))
             {
@@ -76,40 +77,39 @@ public class UserMenu
 
     private void AddVocabulary()
     {
-        Console.WriteLine("\n=== Create Note ===");
+        Console.WriteLine("Create Note");
         Console.WriteLine("Enter User Id:");
         int UserId;
         while (!int.TryParse(Console.ReadLine(), out UserId))
         {
-            Console.WriteLine("Enter a valid id");
+            Console.WriteLine("Press any key to re-enter");
         }
         Console.WriteLine("Enter Vocabulary Id:");
         int VocabularyId;
 
         while (!int.TryParse(Console.ReadLine(), out VocabularyId))
         {
-            Console.WriteLine("Enter a valid id");
+            Console.WriteLine("Press any key to re-enter");
         }
 
         userService.AddVocabulary(UserId, VocabularyId);
 
         Console.WriteLine("Note created!");
     }
-
     private void Create()
     {
-        Console.WriteLine("\n=== Create User ===");
+        Console.WriteLine("Create User");
         Console.WriteLine("Enter Id:");
         int id;
         while (!int.TryParse(Console.ReadLine(), out id))
         {
-            Console.WriteLine("Enter a valid id");
+            Console.WriteLine("Press any key to re-enter");
         }
         Console.Write("Enter user Name: ");
         string name = Console.ReadLine();
         while (string.IsNullOrWhiteSpace(name))
         {
-            Console.Write("Enter valid input: ");
+            Console.WriteLine("Press any key to re-enter");
             name = Console.ReadLine();
         }
         var newUser = new User
@@ -123,12 +123,12 @@ public class UserMenu
     }
     private void Update()
     {
-        Console.WriteLine("\n==Update User==");
+        Console.WriteLine("Update User");
         Console.WriteLine("Enter id:");
         int userId;
         while (!int.TryParse(Console.ReadLine(), out userId))
         {
-            Console.WriteLine("Enter a valid Id:");
+            Console.WriteLine("Press any key to re-enter");
         }
         var existUser = userService.GetById(userId);
         if (existUser != null)
@@ -137,7 +137,7 @@ public class UserMenu
             string updatedName = Console.ReadLine();
             while (string.IsNullOrWhiteSpace(updatedName))
             {
-                Console.WriteLine("Enter a valid name");
+                Console.WriteLine("Press any key to re-enter");
                 updatedName = Console.ReadLine();
             }
             var user = userService.GetById(userId);
@@ -153,15 +153,14 @@ public class UserMenu
             }
         }
     }
-
     private void Delete()
     {
-        Console.WriteLine("===Delete User===");
-        Console.WriteLine("Enter userId to delete");
+        Console.WriteLine("Delete User");
+        Console.WriteLine("Enter an Id");
         int id;
         while (!int.TryParse(Console.ReadLine(), out id))
         {
-            Console.WriteLine("Please enter a valid id");
+            Console.WriteLine("Press any key to re-enter");
         }
         if (userService.Delete(id))
         {
@@ -174,23 +173,23 @@ public class UserMenu
     }
     private void GetById()
     {
-        Console.WriteLine("====Get By Id====");
-        Console.WriteLine("Enter the Id:");
+        Console.WriteLine("Get By Id");
+        Console.WriteLine("Enter an Id:");
         int id;
         while (!int.TryParse(Console.ReadLine(), out id))
         {
-            Console.WriteLine("Enter a valid id");
+            Console.WriteLine("Press any key to re-enter");
         }
         var user = userService.GetById(id);
         if (user == null)
         {
-            Console.WriteLine("User not found");
+            Console.WriteLine("User is not found");
         }
         else Console.WriteLine($"Id:{user.Id} | Name {user.Name} ");
     }
     private void GetAll()
     {
-        Console.WriteLine("===View all User==");
+        Console.WriteLine("Get all User");
         IEnumerable<User> users = userService.GetAll();
         if (users.Count() > 0)
         {
@@ -201,7 +200,7 @@ public class UserMenu
         }
         else
         {
-            Console.WriteLine("Sorry,User not found");
+            Console.WriteLine("User not found");
         }
 
     }
