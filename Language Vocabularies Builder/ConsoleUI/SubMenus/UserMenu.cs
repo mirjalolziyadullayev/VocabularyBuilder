@@ -8,7 +8,7 @@ public class UserMenu
     {
         userService = new UserService();
     }
-    public void Show()
+    public void Display()
     {
         while (true)
         {
@@ -20,6 +20,7 @@ public class UserMenu
             Console.WriteLine("5.Get All");
             Console.WriteLine("6.Add vocabulary to user");
             Console.WriteLine("7.Exit");
+
             Console.WriteLine("Choose an option");
             string choice = Console.ReadLine();
             while (string.IsNullOrWhiteSpace(choice))
@@ -65,7 +66,7 @@ public class UserMenu
                     return;
                 default:
                     Console.Clear();
-                    Console.WriteLine("Invalid choice,Please try again one more time");
+                    Console.WriteLine("Invalid choice, press any key to re-enter");
                     Console.WriteLine();
                     break;
 

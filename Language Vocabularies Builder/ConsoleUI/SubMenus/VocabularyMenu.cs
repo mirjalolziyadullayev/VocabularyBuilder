@@ -1,4 +1,5 @@
-﻿using VocabularyBuilder.Models;
+﻿using Spectre.Console;
+using VocabularyBuilder.Models;
 using VocabularyBuilder.Services;
 namespace Language_Vocabularies_Builder.ConsoleUI.SubMenus;
 public class VocabularyMenu
@@ -9,17 +10,19 @@ public class VocabularyMenu
     {
         vocabularyService = new VocabularyService();
     }
-    public void Show()
+    public void Display()
     {
         while (true)
         {
-            Console.WriteLine("Vocabulary Menu\n");
-            Console.WriteLine("1.Create");
-            Console.WriteLine("2.Update");
-            Console.WriteLine("3.Delete");
-            Console.WriteLine("4.Get By Id");
-            Console.WriteLine("5.Get All");
-            Console.WriteLine("6.Exit");
+            AnsiConsole.Write(new Markup("[green]Vocabulary[/][grey]Builder[/]\n"));
+            AnsiConsole.Write(new Markup("[blue]Vocabulary Menu[/]\n\n"));
+            AnsiConsole.Write(new Markup("[white]  1.Create[/]\n"));
+            AnsiConsole.Write(new Markup("[white]  2.Update[/]\n\n"));
+            AnsiConsole.Write(new Markup("[white]  3.Delete[/]\n\n"));
+            AnsiConsole.Write(new Markup("[white]  4.Delete[/]\n\n"));
+            AnsiConsole.Write(new Markup("[white]  5.Get by Id[/]\n\n"));
+            AnsiConsole.Write(new Markup("[white]  6.Get All[/]\n\n"));
+            AnsiConsole.Write(new Markup("[red]  3.Exit[/]\n"));
             Console.WriteLine("Choose an option");
             string choice = Console.ReadLine();
             while (string.IsNullOrWhiteSpace(choice))
@@ -69,7 +72,7 @@ public class VocabularyMenu
     }
     private void GetById()
     {
-        Console.WriteLine("====Get By Id====");
+        Console.WriteLine("Get by Id");
         Console.WriteLine("Enter the Id:");
         int id;
         while (!int.TryParse(Console.ReadLine(), out id))
@@ -85,12 +88,12 @@ public class VocabularyMenu
     }
     private void Create()
     {
-        Console.WriteLine("\n=== Create Vocabulary ===");
+        Console.WriteLine("Create Vocabulary");
         Console.WriteLine("Enter Id:");
         int id;
         while (!int.TryParse(Console.ReadLine(), out id))
         {
-            Console.WriteLine("Enter a valid id");
+            Console.WriteLine("Enter a valid id!");
         }
         Console.WriteLine("Enter language: ");
         string language = Console.ReadLine();
@@ -99,7 +102,7 @@ public class VocabularyMenu
             Console.Write("Enter valid input: ");
             language = Console.ReadLine();
         }
-        Console.WriteLine("Enter Translate Language[English-Uzbek]: ");
+        Console.WriteLine("Enter Translate Language:");
         string translateLanguage = Console.ReadLine();
         while (string.IsNullOrWhiteSpace(translateLanguage))
         {
@@ -113,7 +116,6 @@ public class VocabularyMenu
             Console.Write("Enter valid input: ");
             word = Console.ReadLine();
         }
-
         var newVocab = new Vocabulary
         {
             Id = id,
@@ -150,7 +152,6 @@ public class VocabularyMenu
                 Console.WriteLine("Enter a valid langauge ");
                 updatedLanguage = Console.ReadLine();
             }
-
             Console.WriteLine("Enter update Word:");
             string updatedWord = Console.ReadLine();
             while (string.IsNullOrWhiteSpace(updatedWord))
